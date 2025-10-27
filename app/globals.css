@@ -1,0 +1,381 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Leekha Color Palette - Soft Pastels & Emotional Tones */
+  --background: oklch(0.98 0.01 70);
+  --foreground: oklch(0.2 0.02 250);
+  --card: oklch(0.99 0.005 70);
+  --card-foreground: oklch(0.2 0.02 250);
+  --popover: oklch(0.99 0.005 70);
+  --popover-foreground: oklch(0.2 0.02 250);
+
+  /* Primary: Deep Blue */
+  --primary: oklch(0.35 0.12 250);
+  --primary-foreground: oklch(0.98 0.01 70);
+
+  /* Secondary: Muted Rose */
+  --secondary: oklch(0.75 0.08 15);
+  --secondary-foreground: oklch(0.2 0.02 250);
+
+  /* Accent: Subtle Gold */
+  --accent: oklch(0.72 0.12 70);
+  --accent-foreground: oklch(0.2 0.02 250);
+
+  --muted: oklch(0.92 0.01 70);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --border: oklch(0.92 0.01 70);
+  --input: oklch(0.95 0.005 70);
+  --ring: oklch(0.35 0.12 250);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0.01 70);
+
+  --chart-1: oklch(0.75 0.08 15);
+  --chart-2: oklch(0.35 0.12 250);
+  --chart-3: oklch(0.72 0.12 70);
+  --chart-4: oklch(0.65 0.06 200);
+  --chart-5: oklch(0.8 0.05 30);
+
+  --radius: 0.625rem;
+  --sidebar: oklch(0.98 0.01 70);
+  --sidebar-foreground: oklch(0.2 0.02 250);
+  --sidebar-primary: oklch(0.35 0.12 250);
+  --sidebar-primary-foreground: oklch(0.98 0.01 70);
+  --sidebar-accent: oklch(0.75 0.08 15);
+  --sidebar-accent-foreground: oklch(0.2 0.02 250);
+  --sidebar-border: oklch(0.92 0.01 70);
+  --sidebar-ring: oklch(0.35 0.12 250);
+}
+
+.dark {
+  --background: oklch(0.15 0.01 250);
+  --foreground: oklch(0.95 0.01 70);
+  --card: oklch(0.2 0.01 250);
+  --card-foreground: oklch(0.95 0.01 70);
+  --popover: oklch(0.2 0.01 250);
+  --popover-foreground: oklch(0.95 0.01 70);
+  --primary: oklch(0.75 0.08 15);
+  --primary-foreground: oklch(0.15 0.01 250);
+  --secondary: oklch(0.35 0.12 250);
+  --secondary-foreground: oklch(0.95 0.01 70);
+  --accent: oklch(0.72 0.12 70);
+  --accent-foreground: oklch(0.15 0.01 250);
+  --muted: oklch(0.3 0.01 250);
+  --muted-foreground: oklch(0.7 0.02 70);
+  --border: oklch(0.3 0.01 250);
+  --input: oklch(0.25 0.01 250);
+  --ring: oklch(0.75 0.08 15);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.95 0.01 70);
+  --chart-1: oklch(0.75 0.08 15);
+  --chart-2: oklch(0.65 0.06 200);
+  --chart-3: oklch(0.72 0.12 70);
+  --chart-4: oklch(0.35 0.12 250);
+  --chart-5: oklch(0.8 0.05 30);
+  --sidebar: oklch(0.15 0.01 250);
+  --sidebar-foreground: oklch(0.95 0.01 70);
+  --sidebar-primary: oklch(0.75 0.08 15);
+  --sidebar-primary-foreground: oklch(0.15 0.01 250);
+  --sidebar-accent: oklch(0.35 0.12 250);
+  --sidebar-accent-foreground: oklch(0.95 0.01 70);
+  --sidebar-border: oklch(0.3 0.01 250);
+  --sidebar-ring: oklch(0.75 0.08 15);
+}
+
+@theme inline {
+  --font-sans: "Inter", "Inter Fallback";
+  --font-serif: "Playfair Display", "Playfair Display Fallback";
+  --font-script: "Caveat", "Caveat Fallback";
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      ), repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.02) 2px, rgba(0, 0, 0, 0.02) 4px);
+  }
+}
+
+/* Leekha-specific animations and typography */
+@layer components {
+  /* Serif font for titles */
+  .font-serif {
+    font-family: "Playfair Display", serif;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  /* Script font for signatures and quotes */
+  .font-script {
+    font-family: "Caveat", cursive;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+
+  /* Parchment-like card styling */
+  .card-paper {
+    @apply bg-card text-card-foreground rounded-lg shadow-sm border border-border/50;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  /* Fade-in animation for text */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* Gentle float animation for stickers */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(2deg);
+    }
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Glow effect for heart likes */
+  @keyframes heartGlow {
+    0%,
+    100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 0px rgba(239, 68, 68, 0));
+    }
+    50% {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.6));
+    }
+  }
+
+  .animate-heart-glow {
+    animation: heartGlow 0.6s ease-out;
+  }
+
+  /* Sticky note shuffle animation */
+  @keyframes stickyShift {
+    0%,
+    100% {
+      transform: rotate(-1deg) translateY(0);
+    }
+    50% {
+      transform: rotate(1deg) translateY(-2px);
+    }
+  }
+
+  .animate-sticky-shift {
+    animation: stickyShift 3s ease-in-out infinite;
+  }
+
+  /* Added smooth scale animation for cards */
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  /* Added subtle pulse animation */
+  @keyframes subtlePulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-subtle-pulse {
+    animation: subtlePulse 2s ease-in-out infinite;
+  }
+
+  /* New animations for creative elements */
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  .animate-fade-out {
+    animation: fadeOut 0.8s ease-out forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(100vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+
+  .animate-fall {
+    animation: fall 2s ease-in forwards;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s infinite;
+  }
+
+  @keyframes glow {
+    0%,
+    100% {
+      box-shadow: 0 0 5px rgba(212, 165, 165, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(212, 165, 165, 0.8);
+    }
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  /* Added new animations for enhanced interactivity */
+  @keyframes slideInFromLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in-left {
+    animation: slideInFromLeft 0.5s ease-out;
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-in-right {
+    animation: slideInFromRight 0.5s ease-out;
+  }
+
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes textReveal {
+    from {
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  .animate-text-reveal {
+    animation: textReveal 0.8s ease-out;
+  }
+
+  @keyframes drawStroke {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
