@@ -1,12 +1,14 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { Heart, MessageCircle, Share2, ArrowLeft, Copy, Mail } from "lucide-react"
 import { CommentsSection } from "./comments-section"
 import { AmbientSoundToggle } from "./ambient-sound-toggle"
 import { BorderStickers } from "./border-stickers"
 import Link from "next/link"
+import { useAuth } from "@/context/AuthContext"
+
 
 interface ReadingPageProps {
   writingId: string
@@ -36,7 +38,10 @@ interface Writing {
 }
 
 export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
-  const router = useRouter() // 👈 initialize router
+  const router = useRouter()
+  const { user, openLoginModal } = useAuth()
+
+  // const { user, openLoginModal } = useContext(AuthContext) 
   const [writing, setWriting] = useState<Writing | null>(null)
   const [relatedWritings, setRelatedWritings] = useState<Writing[]>([])
   const [loading, setLoading] = useState(true)
@@ -74,8 +79,26 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
   }, [writingId])
 
   const handleLike = () => {
+    if (!user) {
+      openLoginModal() // 👈 if not logged in → ask login
+      return
+    }
+
     setLiked(!liked)
     setLikes(liked ? likes - 1 : likes + 1)
+
+    // optional — sync like to backend later
+    // await fetch(`${apiUrl}/writings/${writingId}/like`, { method: "POST", headers: { Authorization: `Bearer ${user.token}` } })
+  }
+
+  const handleCommentClick = () => {
+    if (!user) {
+      openLoginModal()
+      return
+    }
+    // scroll to comment section or open comment input
+    const commentSection = document.getElementById("comments")
+    if (commentSection) commentSection.scrollIntoView({ behavior: "smooth" })
   }
 
   const handleCopyLink = () => {
@@ -122,11 +145,7 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
       <header className="sticky top-0 z-50 bg-card/80 backdrop-blur-sm border-b border-border/30">
         <div className="max-w-3xl mx-auto px-6 py-4 flex items-center gap-4">
           <button
-            onClick={() => {
-              if (onBack) onBack()
-              else router.back() // 👈 fallback to router.back() if no onBack passed
-            }}
-
+            onClick={() => (onBack ? onBack() : router.back())}
             className="p-2 hover:bg-secondary/20 rounded-full transition-colors"
             aria-label="Go back"
           >
@@ -164,9 +183,7 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
               )}
               <div>
                 <p className="font-medium text-foreground">{writing.author?.name}</p>
-                <p className="text-xs">
-                  {new Date(writing.created_at).toLocaleDateString("en-US")}
-                </p>
+                <p className="text-xs">{new Date(writing.created_at).toLocaleDateString("en-US")}</p>
               </div>
             </div>
             <span>•</span>
@@ -174,7 +191,7 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
           </div>
         </div>
 
-        {/* Content — restored old poetic fade style */}
+        {/* Content */}
         <div className="prose prose-invert max-w-none mb-16">
           {writing.content
             ?.split("\n")
@@ -204,7 +221,10 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
               <span className="font-medium">{likes}</span>
             </button>
 
-            <button className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors">
+            <button
+              onClick={handleCommentClick}
+              className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors"
+            >
               <MessageCircle size={24} />
               <span className="font-medium">Comments</span>
             </button>
@@ -245,9 +265,11 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
         </div>
 
         {/* Comments */}
-        <CommentsSection writingId={writingId} />
+        <div id="comments">
+          <CommentsSection writingId={writingId} />
+        </div>
 
-        {/* Related writings — minimal design */}
+        {/* Related writings */}
         {relatedWritings.length > 0 && (
           <div className="mt-16 pt-12 border-t border-border/30">
             <h3 className="font-serif text-2xl text-primary mb-8 animate-fade-in-up">
