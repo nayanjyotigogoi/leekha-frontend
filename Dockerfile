@@ -2,9 +2,9 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copy package files and install dependencies (ignore peer dependency conflicts)
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Copy the rest of the app
 COPY . .
@@ -26,5 +26,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
 
 EXPOSE 3000
-
 CMD ["npm", "start"]
