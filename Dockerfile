@@ -2,6 +2,7 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# ✅ Inject public env variable
 ARG NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
@@ -17,6 +18,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
+# ✅ carry variable into runtime container
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 COPY --from=builder /app/public ./public
