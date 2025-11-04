@@ -119,9 +119,10 @@ export default function WritingDetailPage() {
                 </p>
 
                 <article
-                    className="prose prose-invert max-w-none leading-relaxed mb-12"
-                    dangerouslySetInnerHTML={{ __html: writing.content }}
-                />
+  className="prose prose-invert max-w-none leading-relaxed mb-12"
+  dangerouslySetInnerHTML={{ __html: writing?.content || "" }}
+/>
+
 
                 {/* Like button */}
                 <div className="flex items-center gap-3 mb-12">
