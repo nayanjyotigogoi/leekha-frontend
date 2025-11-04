@@ -192,7 +192,13 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
         </div>
 
         {/* Content */}
-        <div className="prose prose-invert max-w-none mb-16">
+        {/* Content */}
+        <article
+          className="prose prose-invert max-w-none leading-relaxed mb-16 animate-fade-in-up"
+          dangerouslySetInnerHTML={{ __html: writing?.content || "" }}
+        />
+
+        {/* <div className="prose prose-invert max-w-none mb-16">
           {writing.content
             ?.split("\n")
             .filter((p) => p.trim().length > 0)
@@ -205,7 +211,7 @@ export function ReadingPage({ writingId, onBack }: ReadingPageProps) {
                 {paragraph}
               </p>
             ))}
-        </div>
+        </div> */}
 
         {/* Like / Share */}
         <div className="border-t border-b border-border/30 py-8 mb-12">
